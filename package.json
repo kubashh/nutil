@@ -1,0 +1,15 @@
+{
+  "name": "@kubashh/nutil",
+  "module": "main.ts",
+  "scripts": {
+    "dev": "bun main.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "latest"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 108
+  }
+}
