@@ -1,12 +1,21 @@
 {
   "name": "@kubashh/nutil",
-  "version": "1.0.0",
-  "scripts": {
-    "dev": "bun main.ts"
-  },
+  "version": "1.0.2",
+  "author": "kubashh",
+  "description": "Simplify use of nodejs api's",
+  "repository": "https://github.com/kubashh/nutil",
+  "license": "MIT",
   "devDependencies": {
     "@types/bun": "latest"
   },
+  "keywords": [
+    "node",
+    "util",
+    "nutil"
+  ],
+  "files": [
+    "index.ts"
+  ],
   "prettier": {
     "semi": false,
     "printWidth": 108

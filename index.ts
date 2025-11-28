@@ -18,13 +18,15 @@ class CFileSync {
   }
 
   json() {
+    if (!this.exists()) return {}
     return JSON.parse(this.text())
   }
 
   write(text: string) {
     const arr = this.path.split(`/`)
-    for (let i = 0; i < arr.length - 1; i++) {
-      if (!fs.existsSync(arr[i])) fs.mkdirSync(arr[i])
+    for (let i = 1; i < arr.length; i++) {
+      const dir = arr.slice(0, i).join(`/`)
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir)
     }
     fs.writeFileSync(this.path, text)
   }
@@ -41,20 +43,6 @@ class CFileSync {
 const runtimes = [`bun`, `node`, `deno`, `npm`, `yarn`, `pnpm`]
 let validRuntime: string | null = null
 
-function getValidRuntime(runtimes: string[]) {
-  for (const rt of runtimes) {
-    try {
-      const a = child_process.spawnSync(rt, {
-        timeout: 5,
-      })
-
-      if (a.status === 0) return rt
-    } catch {}
-  }
-
-  Err(`No valid runtime, runtimes:`, runtimes)
-}
-
 export function spawnSync({ runtime, cmd, ...options }: spawnSyncOptions) {
   let firstArg = ``
   if (runtime) {
@@ -68,6 +56,20 @@ export function spawnSync({ runtime, cmd, ...options }: spawnSyncOptions) {
 
   if (cmd.length > 0) child_process.spawnSync(firstArg, cmd, options)
   else child_process.spawnSync(firstArg, options)
+}
+
+function getValidRuntime(runtimes: string[]) {
+  for (const rt of runtimes) {
+    try {
+      const a = child_process.spawnSync(rt, {
+        timeout: 5,
+      })
+
+      if (a.status === 0) return rt
+    } catch {}
+  }
+
+  Err(`No valid runtime, runtimes:`, runtimes)
 }
 
 export function Err(...args: any[]): never {
