@@ -1,6 +1,6 @@
 import { FileSync, spawnSync } from ".."
 
-await Bun.$`clear`
+spawnSync({ cmd: [`clear`] })
 
 spawnSync({
   cmd: [`ls`],

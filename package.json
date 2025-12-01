@@ -1,6 +1,6 @@
 {
   "name": "@kubashh/nutil",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "author": "kubashh",
   "description": "Simplify use of nodejs api's",
   "repository": "https://github.com/kubashh/nutil",
@@ -10,6 +10,7 @@
   },
   "keywords": [
     "node",
+    "FileSync",
     "util",
     "nutil"
   ],

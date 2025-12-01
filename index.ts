@@ -40,18 +40,22 @@ class CFileSync {
   }
 }
 
-const runtimes = [`bun`, `node`, `deno`, `npm`, `yarn`, `pnpm`]
+const runtimes = [`bun`, `node`, `deno`]
+const pms = [`bun`, `npm`, `yarn`, `pnpm`]
+const all = [...runtimes, ...pms]
 let validRuntime: string | null = null
 
-export function spawnSync({ runtime, cmd, ...options }: spawnSyncOptions) {
+export function spawnSync({ engine, cmd, ...options }: spawnSyncOptions) {
   let firstArg = ``
-  if (runtime) {
-    if (typeof runtime !== `boolean`) validRuntime = getValidRuntime(runtime)
-    else if (!validRuntime) validRuntime = getValidRuntime(runtimes)
-    firstArg = validRuntime
+  if (engine) {
+    if (engine === `pm`) getValidRuntime(pms)
+    else if (engine === `runtimes`) getValidRuntime(runtimes)
+    else if (engine === `all`) getValidRuntime(all)
+    else getValidRuntime(runtimes)
+    firstArg = validRuntime!
   } else {
     firstArg = cmd[0]
-    cmd = cmd.slice(1)
+    cmd.splice(1)
   }
 
   if (cmd.length > 0) child_process.spawnSync(firstArg, cmd, options)
@@ -59,13 +63,17 @@ export function spawnSync({ runtime, cmd, ...options }: spawnSyncOptions) {
 }
 
 function getValidRuntime(runtimes: string[]) {
+  if (validRuntime) return
   for (const rt of runtimes) {
     try {
       const a = child_process.spawnSync(rt, {
         timeout: 5,
       })
 
-      if (a.status === 0) return rt
+      if (a.status === 0) {
+        validRuntime = rt
+        return
+      }
     } catch {}
   }
 
@@ -84,7 +92,7 @@ export { fs, path, child_process, FileSync }
 type spawnSyncOptions = {
   cmd: string[]
   cwd?: string
-  runtime?: true | string[]
+  engine?: `pm` | `runtimes` | `all` | string[]
   stdio?: child_process.StdioOptions
   timeout?: number
   killSignal?: number | Signals | undefined
