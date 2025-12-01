@@ -40,9 +40,9 @@ class CFileSync {
   }
 }
 
-const runtimes = [`bun`, `node`, `deno`]
-const pms = [`bun`, `npm`, `yarn`, `pnpm`]
-const all = [...runtimes, ...pms]
+const runtimes = new Set([`bun`, `node`, `deno`])
+const pms = new Set([`bun`, `npm`, `yarn`, `pnpm`])
+const all = new Set([...runtimes, ...pms])
 let validRuntime: string | null = null
 
 export function spawnSync({ engine, cmd, ...options }: spawnSyncOptions) {
@@ -62,9 +62,10 @@ export function spawnSync({ engine, cmd, ...options }: spawnSyncOptions) {
   else child_process.spawnSync(firstArg, options)
 }
 
-function getValidRuntime(runtimes: string[]) {
+function getValidRuntime(runtimes: Set<string>) {
   if (validRuntime) return
   for (const rt of runtimes) {
+    console.log(rt)
     try {
       const a = child_process.spawnSync(rt, {
         timeout: 5,

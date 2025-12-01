@@ -1,6 +1,7 @@
 import { FileSync, spawnSync } from ".."
 
 spawnSync({ cmd: [`clear`] })
+spawnSync({ cmd: [`-h`], engine: `runtimes` })
 
 spawnSync({
   cmd: [`ls`],
