@@ -1,3 +1,5 @@
 /node_modules
 /bun.lock
+/index.js
+/index.d.ts
 /workspace

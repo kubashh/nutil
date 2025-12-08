@@ -40,6 +40,35 @@ class CFileSync {
   }
 }
 
+// TODO
+const excludeDirs = [`node_modules`, `package.json`]
+// Function to recursively scan files in a directory
+export function scanFiles(dirPath: string) {
+  if (excludeDirs.includes(dirPath)) return []
+  if (!fs.existsSync(dirPath)) {
+    Err(`Directory '${dirPath}' does not exist.`)
+  }
+  const filesList: string[] = [] // Array to store file paths
+
+  // Read contents of the directory
+  const files = fs.readdirSync(dirPath)
+
+  files.forEach((file) => {
+    const fullPath = path.join(dirPath, file) // Get the full file path
+
+    // Check if it's a directory
+    if (fs.statSync(fullPath).isDirectory()) {
+      // Recursively scan subdirectories
+      filesList.push(...scanFiles(fullPath))
+    } else {
+      // It's a file, add it to the list
+      filesList.push(fullPath)
+    }
+  })
+
+  return filesList
+}
+
 const runtimes = new Set([`bun`, `node`, `deno`])
 const pms = new Set([`bun`, `npm`, `yarn`, `pnpm`])
 const all = new Set([...runtimes, ...pms])
@@ -69,6 +98,7 @@ function getValidRuntime(runtimes: Set<string>) {
     try {
       const a = child_process.spawnSync(rt, {
         timeout: 5,
+        stdio: `ignore`,
       })
 
       if (a.status === 0) {

@@ -1,29 +1,41 @@
 {
   "compilerOptions": {
-    // Environment setup & latest features
-    "lib": ["ESNext"],
-    "target": "ESNext",
-    "module": "Preserve",
-    "moduleDetection": "force",
-    "jsx": "react-jsx",
-    "allowJs": true,
+    // // Environment setup & latest features
+    // "lib": ["ESNext"],
+    // "target": "ESNext",
+    // "module": "ESnext",
+    // "moduleDetection": "force",
+    // "jsx": "react-jsx",
+    // "allowJs": true,
 
-    // Bundler mode
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "noEmit": true,
+    // // Bundler mode
+    // "declaration": true, // Generates .d.ts files
+    // "declarationDir": ".", // Output directory for .d.ts files
+    // "esModuleInterop": true, // Interop with ES modules
+    // "emitDeclarationOnly": true,
 
-    // Best practices
-    "strict": true,
-    "skipLibCheck": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": false,
-    "noImplicitOverride": true,
+    // // Best practices
+    // "strict": true,
+    // "skipLibCheck": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noUncheckedIndexedAccess": false,
+    // "noImplicitOverride": true,
 
-    // Some stricter flags (disabled by default)
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noPropertyAccessFromIndexSignature": false
-  }
+    // // Some stricter flags (disabled by default)
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noPropertyAccessFromIndexSignature": false,
+
+    // Compiler
+    "declaration": true, // Generates .d.ts files
+    "declarationDir": ".", // Output directory for .d.ts files
+    "esModuleInterop": true, // Interop with ES modules
+    "target": "ESNext", // Specify ECMAScript target version
+    "module": "ESNext", // Use ES module system
+    "strict": true, // Enables strict type-checking
+    "skipLibCheck": true, // Skip library type checks (optional),
+    "emitDeclarationOnly": true
+  },
+  "include": ["index.ts"], // Include your TypeScript files
+  "exclude": ["node_modules"] // Exclude unnecessary directories
 }

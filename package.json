@@ -1,12 +1,16 @@
 {
   "name": "@kubashh/nutil",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "author": "kubashh",
   "description": "Simplify use of nodejs api's",
   "repository": "https://github.com/kubashh/nutil",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc && bun build index.ts --target=bun --external=react,child_process --outdir=. --minify"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "typescript": "latest"
   },
   "keywords": [
     "node",
@@ -15,7 +19,8 @@
     "nutil"
   ],
   "files": [
-    "index.ts"
+    "index.js",
+    "index.d.ts"
   ],
   "prettier": {
     "semi": false,
